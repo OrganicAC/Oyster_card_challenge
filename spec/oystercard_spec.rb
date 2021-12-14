@@ -18,6 +18,14 @@ describe Oystercard do
         expect{ subject.top_up 1 }.to raise_error 'Your card has hit the limit!'
       end
     end
+
+    describe '#deduct_fare' do
+      it { is_expected.to respond_to(:deduct_fare).with(1).argument }
+    
+      it 'can deduct fare from balance' do
+        expect{ subject.deduct_fare 1 }.to change{ subject.balance }.by -1
+      end
+    end
 end
 
 

@@ -7,7 +7,12 @@ class Oystercard
   end 
 
   def top_up(amount)
-      fail 'Your card has hit the limit!' if amount + balance > MAX_BALANCE 
-      @balance += amount
+    fail 'Your card has hit the limit!' if amount + balance > MAX_BALANCE 
+    @balance += amount
   end
+
+  def deduct_fare(amount)
+    @balance -= amount
+  end
+
 end
