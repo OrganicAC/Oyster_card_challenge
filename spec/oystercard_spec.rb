@@ -1,6 +1,7 @@
 require 'oyster'
 
 describe Oystercard do
+  subject(:oystercard) { described_class.new }
 
     it 'Equals 0' do
       expect(subject.balance).to eq 0
@@ -33,6 +34,7 @@ describe Oystercard do
     end
 
     it 'touches in' do
+      oystercard.top_up(Oystercard::MAX_BALANCE)
       subject.touch_in
       expect(subject).to be_in_journey
     end 
@@ -41,4 +43,10 @@ describe Oystercard do
       subject.touch_out
       expect(subject).not_to be_in_journey
     end 
+
+    it "raises error if balance < 1"  do
+      oystercard.deduct_fare(Oystercard::DEFAULT_BALANCE)
+      expect { subject.touch_in }.to raise_error "INSUFFICIENT FUNDS"
+    end
 end
+
