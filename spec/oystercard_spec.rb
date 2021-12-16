@@ -67,6 +67,7 @@ describe Oystercard do
       expect(subject.exit_station).to eq station
     end 
 
+
   describe 'Journey list' do
     it 'is an empty hash for journey' do
       expect(subject.journey_history).to eq ({}) #be_empty
@@ -80,12 +81,6 @@ describe Oystercard do
         entry_station: station,
         exit_station: station
       })
-    end   
+    end 
   end 
-
-
-    #test for touch in-touch out creating one journey
-
-    #I want to see all my previous trips(store previous trips - array/hash)
-
   end 
