@@ -10,9 +10,9 @@ describe Oystercard do
 
 
   describe '#top_up' do
-      it { is_expected.to respond_to(:top_up).with(1).argument  }
-  end 
 
+    it { is_expected.to respond_to(:top_up).with(1).argument  } 
+    
     it 'can top up balance' do
       expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
     end 
@@ -21,25 +21,6 @@ describe Oystercard do
       max_balance = Oystercard::MAX_BALANCE
       subject.top_up(max_balance)
       expect{ subject.top_up 1 }.to raise_error 'Your card has hit the limit!'
-    end 
-
-
-  describe 'touch_in, touch_out, in_journey' do
-    it 'is initially not a journey' do
-      expect(subject).not_to be_in_journey
-    end 
-
-    it 'can touch in' do
-      oystercard.top_up(Oystercard::MAX_BALANCE)
-      subject.touch_in(station)
-      expect(subject).to be_in_journey
-    end 
-
-    it 'can touch out' do
-      oystercard.top_up(Oystercard::MAX_BALANCE)
-      subject.touch_in(station)
-      subject.touch_out(station)
-      expect(subject).not_to be_in_journey
     end 
   end 
 
@@ -53,34 +34,4 @@ describe Oystercard do
       subject.touch_in(station)
       expect{ subject.touch_out(station) }.to change{ subject.balance }.by(-Oystercard::MIN_BALANCE)
     end 
-
-    it 'remembers the station on touch in' do
-      oystercard.top_up(Oystercard::MAX_BALANCE)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq station
-    end 
-
-    it 'tests for an exit station' do
-      oystercard.top_up(Oystercard::MAX_BALANCE)
-      subject.touch_in(station)
-      subject.touch_out(station)
-      expect(subject.exit_station).to eq station
-    end 
-
-
-  describe 'Journey list' do
-    it 'is an empty hash for journey' do
-      expect(subject.journey_history).to eq ({}) #be_empty
-    end 
-  
-    it 'tests for touching in and out creating one journey' do
-      oystercard.top_up(Oystercard::MAX_BALANCE)
-      subject.touch_in(station)
-      subject.touch_out(station)
-      expect(subject.journey_history).to include ({
-        entry_station: station,
-        exit_station: station
-      })
-    end 
-  end 
   end 

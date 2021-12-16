@@ -9,5 +9,4 @@ describe Station do
     expect(subject.zone).to eq 2
   end
 end 
- 
-#station name and station zone variable
+
