@@ -17,7 +17,7 @@ describe Journey do
       subject.end_journey(station)
       expect(subject.exit_station).to eq station
     end 
-
+  end 
     
   describe 'Journey list' do
     it 'is an empty hash for journey' do
@@ -31,7 +31,8 @@ describe Journey do
         entry_station: station,
         exit_station: station
       })
-    end 
+    end
+  end 
 
   describe 'in_journey' do
     it 'is initially not a journey' do
@@ -47,7 +48,25 @@ describe Journey do
       subject.end_journey(station)
       expect(subject).not_to be_in_journey
     end 
-end 
-end
+  end 
+
+  describe 'fare' do
+    it 'expects default penalty fare' do
+      subject.exit_station
+      expect(subject.fare).to eq Journey::PENALTY_FARE
+    end 
+
+
+  context 'given an exit station' do
+    let(:new_station) { double :new_station } 
+  
+    before do
+      subject.end_journey(new_station)
+    end 
+
+    it 'expects minimum fare' do
+      expect(subject.fare).to eq 1
+    end 
+  end   
 end 
 end 
